@@ -1,9 +1,19 @@
 ProjectTracker::Application.routes.draw do
-  get "mainpage/home"
-  get "mainpage/projects"
-  get "mainpage/aboutus"
-  get "mainpage/contactus"
-  get "mainpage/account"
+
+  root 'mainpage#home'
+
+  match '/show', to: 'projects#show', via: 'get'
+  match '/create', to: 'projects#new', via: 'get' 
+  match '/update', to: 'projects#update', via: 'get' 
+  match '/delete', to: 'projects#delete', via: 'get'
+  
+  match '/', to: 'mainpage#home', via: 'get'
+  match '/projects', to: 'mainpage#projects', via: 'get'
+  match '/account', to: 'mainpage#account', via: 'get'
+  match '/aboutus', to: 'mainpage#aboutus', via: 'get'
+  match '/contactus', to: 'mainpage#contactus', via: 'get'
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
