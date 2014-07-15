@@ -1,14 +1,16 @@
 ProjectTracker::Application.routes.draw do
 
+resources :projects
   root 'mainpage#home'
 
-  match '/show', to: 'projects#show', via: 'get'
-  match '/create', to: 'projects#new', via: 'get' 
-  match '/update', to: 'projects#update', via: 'get' 
-  match '/delete', to: 'projects#delete', via: 'get'
+  # match '/show', to: 'projects#show', via: 'get'
+  # match '/new', to: 'projects#new', via: 'get' 
+  # match '/update', to: 'projects#update', via: 'get' 
+  # match '/delete', to: 'projects#destroy', via: 'DELETE'
   
   match '/', to: 'mainpage#home', via: 'get'
-  match '/projects', to: 'mainpage#projects', via: 'get'
+  
+
   match '/account', to: 'mainpage#account', via: 'get'
   match '/aboutus', to: 'mainpage#aboutus', via: 'get'
   match '/contactus', to: 'mainpage#contactus', via: 'get'

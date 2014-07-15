@@ -3,6 +3,7 @@ class MainpageController < ApplicationController
   end
 
   def projects
+    render projects_path
   end
 
   def aboutus
