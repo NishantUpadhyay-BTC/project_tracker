@@ -1,18 +1,22 @@
+
 class ProjectsController < ApplicationController
 
   before_action :set_project, only:[:edit,:update,:destroy, :show]
-  
+    
+
   def new
     @project = Project.new
+    
   end
   
   def create
-    @project = Project.new(user_params)
-
-      if @project.save
+    @project = Project.new(create_params)
+    
+    
+      if @project.save 
 
         flash[:success] = "Project Added Successfully"
-        redirect_to @project
+        redirect_to projects_path
       else
         render 'new'
       end
@@ -26,7 +30,7 @@ class ProjectsController < ApplicationController
   def update
     if @project.save 
       flash[:success] = "Project updated Successfully"
-      @project.update_attributes(user_params)
+      @project.update_attributes(update_params)
       redirect_to @project
     else
       render edit_project_path
@@ -40,7 +44,9 @@ class ProjectsController < ApplicationController
   end 
 
   def index
-    @project = Project.all
+    
+    @project = Project.search(params[:search],params[:stat],params[:client_id]).paginate(page: params[:page], :per_page => 10)
+     
   end
 
   def show
@@ -53,7 +59,11 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
   end
  
-  def user_params
-      params.require(:project).permit(:Name, :Code, :Description, :BillingType, :StartDate,:DeadlineDate, :EndDate, :gitHubUrl, :status)
+  def update_params
+      params.require(:project).permit(:Name, :Code, :Description, :BillingType, :StartDate,:DeadlineDate, :EndDate, :gitHubUrl, :status, :name, :country)
     end
+   def create_params
+      params.require(:project).permit(:Name, :Code, :Description, :BillingType, :StartDate,:DeadlineDate, :EndDate, :gitHubUrl, :status, :name, :country, :client_id)
+    end
+
 end

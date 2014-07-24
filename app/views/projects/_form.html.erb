@@ -1,5 +1,5 @@
 
-<%= form_for(@project) do |f| %>
+<%= form_for (@project) do  |f| %>
 <% if  @project.errors.any? %>
 	<div id="error_explanation">
 		<div class="alert alert-error">
@@ -52,10 +52,14 @@
 		<%= f.label :GitHub_URL %>
 		<%= f.text_field :gitHubUrl%>
 		
-
+		
+		
+		
 		
 		<%= f.label :Status %>
 		<%= f.select :status, options_for_select(%w[POC Kick_off Completed])%>
+
+	<%= f.select :client_id, Client.all.collect {|u| [u.name, u.id]}, prompt: 'Select' %>
 		
 		<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
 		<br /><br />

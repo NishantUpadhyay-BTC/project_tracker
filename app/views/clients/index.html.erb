@@ -1,0 +1,28 @@
+<%= button_to "Add Client",{:controller => 'clients',  :action => 'new' }, :method => :get , class:" btn btn-large btn-info " %>
+
+<%= will_paginate @client %>
+	
+	<table class="table table-bordered">
+
+	<thead>
+	<th>ID</th>
+	<th>Client Name</th>
+	<th>Country</th>
+	<th>Edit</th>
+	<th>Delete</th>
+	</thead>
+<% @client.each do |client| %>
+	<tbody>
+	<td><%= client.id%></td>
+		<td><%= client.name%></td>
+		<td><%= client.country%></td>
+		<td><%=link_to "Edit",edit_client_path(client) %></td>
+		<% if !(client.projects.any?) %>
+	<td><%= link_to "delete", client, method: :delete, data: { confirm: "You sure?" }%></td>
+	<%else%>
+	<td>delete</td>
+	<%end%>
+	</tbody>
+<%end%>
+</table>
+<%= will_paginate @client%>

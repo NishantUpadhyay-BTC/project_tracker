@@ -1,5 +1,16 @@
 <h1>Listing Projects</h1>
+<%= button_to "Create New Project Now",{:controller => 'projects',  :action => 'new' }, :method => :get %>
 
+<%= form_tag projects_path, :method => 'get' do %>
+<%= text_field_tag :search, params[:search] , :placeholder =>"name"%>
+
+
+<%= select_tag(:stat,options_for_select([["Completed","Completed"],["POC","POC"],["Kick off","Kick off"]]),  prompt: "status") %>
+<%= select_tag(:client_id,options_for_select(Client.all.collect {|u| [u.name, u.id]}),  prompt: "client") %>
+<%= submit_tag "search"%>
+<% end %>
+
+<%= will_paginate @project %>
 <table class="table table-bordered">
 	<thead>
 		<th>No.</th> 	
@@ -12,11 +23,14 @@
 		<th>End Date</th>
 		<th>Github URL</th>
 		<th>Status</th>
+		<th>Client</th>
 		<th>Edit</th>
 		<th>Delete</th>
 		
+		
 	</thead>
-	<% @project.each do |data, i|%>
+	<%@project.order('DeadlineDate ASC').each do |data,i|%>
+	
 	<tbody>
 		
 		<td><%=data.id%></td>
@@ -29,10 +43,14 @@
 		<td><%= data.EndDate %></td>
 		<td><%= data.gitHubUrl %></td>
 		<td><%= data.status %></td>
-		
+		<td><%= data.client.name%>
 		<td><%=link_to "Edit",edit_project_path(data) %></td>
 		<td><%= link_to "delete", data, method: :delete, data: { confirm: "You sure?" }%></td>
 		
 	</tbody>
+
 	<% end %>
+
 </table>
+<%= will_paginate @project%>
+

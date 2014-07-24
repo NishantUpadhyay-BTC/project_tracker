@@ -1,6 +1,7 @@
 ProjectTracker::Application.routes.draw do
 
-resources :projects
+  get "clients/controller"
+resources :projects, :clients
   root 'mainpage#home'
 
   # match '/show', to: 'projects#show', via: 'get'
