@@ -1,0 +1,10 @@
+
+<%= form_tag '/projects', :method => 'get', remote: true do %>
+<%= text_field_tag :search, params[:search] , :placeholder =>"name"%>
+
+
+<%= select_tag(:stat,options_for_select([["Completed","Completed"],["POC","POC"],["Kick off","Kick off"]]),  prompt: "status") %>
+<%= select_tag(:client_id,options_for_select(Client.all.collect {|u| [u.name, u.id]}),  prompt: "client") %>
+<%= submit_tag "search"%>
+ 
+<% end %>

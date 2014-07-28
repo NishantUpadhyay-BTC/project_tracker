@@ -1,6 +1,28 @@
-<%= button_to "Add Client",{:controller => 'clients',  :action => 'new' }, :method => :get , class:" btn btn-large btn-info " %>
 
-<%= will_paginate @client %>
+<script type="text/javascript">
+   $(function(){
+       $('.toggleLink').click(function(){
+           $('#toggle_div').slideToggle();
+       });
+   });
+</script>
+<a href="javascript:void(0)" class="toggleLink">Add Client</a>
+
+<div id="toggle_div" style="display:none">     <!-- using external stylesheets of course -->
+<%= form_for(@client) do  |f| %>
+	<%= f.label :name %>
+	<%= f.text_field :name %>	
+	<%= f.label :country %>
+	<%= f.text_field :country%><br />
+	<%= f.submit "Add +", class: "btn btn-large btn-primary" %>
+<%end%>
+
+</div>
+
+
+
+
+<%= will_paginate @clients %>
 	
 	<table class="table table-bordered">
 
@@ -11,18 +33,19 @@
 	<th>Edit</th>
 	<th>Delete</th>
 	</thead>
-<% @client.each do |client| %>
+<% @clients.each do |client| %>
 	<tbody>
 	<td><%= client.id%></td>
-		<td><%= client.name%></td>
+		<td><%=link_to "#{client.name}",client_path(client) %></td>
 		<td><%= client.country%></td>
 		<td><%=link_to "Edit",edit_client_path(client) %></td>
+		
 		<% if !(client.projects.any?) %>
-	<td><%= link_to "delete", client, method: :delete, data: { confirm: "You sure?" }%></td>
+	<td><%= link_to "delete", client_path(client), method: :delete, data: { confirm: "You sure?" }%></td>
 	<%else%>
 	<td>delete</td>
 	<%end%>
 	</tbody>
 <%end%>
 </table>
-<%= will_paginate @client%>
+<%= will_paginate @clients%>

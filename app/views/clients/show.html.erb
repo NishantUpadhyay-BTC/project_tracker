@@ -1,1 +1,38 @@
-<%= @client.name%>
+
+<%arr = @client.projects.all %>
+<h3>Client: <%= @client.name%>(<%= pluralize(arr.length,'project')%>)</h3>
+<h4>ID: <%= @client.id %></h4>
+<h4>Country: <%= @client.country %></h4>
+
+ <% if  arr.length > 0 %>
+ 
+	 <table class="table table-bordered">
+		<thead >
+			<th>Name</th>
+			<th>Code</th>
+			<th>Description</th>
+			<th>BillingType</th>
+			<th>StartDate</th>
+			<th>DeadlineDate</th>
+			<th>EndDate</th>
+			<th>Git url</th>
+			<th>status</th>
+		</thead>
+	<tbody>
+		<% arr.each do |check|%>
+		<td><%= check.Name%></td>
+		<td><%= check.Code%></td>
+		<td><%= check.Description%></td>
+		<td><%= check.BillingType%></td>
+		<td><%= check.StartDate%></td>
+		<td><%= check.DeadlineDate%></td>
+		<td><%= check.EndDate%></td>
+		<td><%= check.gitHubUrl%></td>
+		<td><%= check.status%></td>
+	</tbody>
+<%end%>
+
+</table>
+<% else %>
+	<h2>no projects</h2>
+<%end%>

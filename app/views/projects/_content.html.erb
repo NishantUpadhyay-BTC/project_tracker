@@ -1,0 +1,45 @@
+
+<%= will_paginate @project %>
+<table class="table table-bordered">
+	<thead>
+		<th>No.</th> 	
+		<th>Name</th>
+		<th>Code</th>
+		<th>Description</th>
+		<th>Billing Type</th>
+		<th>Start Date</th>
+		<th>Deadline Date</th>
+		<th>End Date</th>
+		<th>Github URL</th>
+		<th>Status</th>
+		<th>Client</th>
+		<th>Edit</th>
+		<th>Delete</th>
+		
+		
+	</thead>
+	<%@project.order('DeadlineDate ASC').each do |data,i|%>
+	
+	<tbody>
+		
+		<td><%=data.id%></td>
+		<td><%= data.Name %></td>
+		<td><%= data.Code %></td>
+		<td><%= data.Description%></td>
+		<td><%= data.BillingType %></td>
+		<td><%= data.StartDate %></td>
+		<td><%= data.DeadlineDate %></td>
+		<td><%= data.EndDate %></td>
+		<td><%= data.gitHubUrl %></td>
+		<td><%= data.status %></td>
+		<td><%=link_to "#{data.client.name}",client_path(data.client) %></td>
+		<td><%=link_to "Edit",edit_project_path(data) %></td>
+		<td><%= link_to "delete", data, method: :delete, data: { confirm: "You sure?" }%></td>
+		
+	</tbody>
+
+	<% end %>
+
+</table>
+<%= will_paginate @project%>
+

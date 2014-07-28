@@ -1,0 +1,8 @@
+$('#reset_button').click(function() {
+	$('#form_field form')[0].reset();
+});
+	$('#content').html("<%= escape_javascript(render('projects/content'))%>");
+
+$('#add_client_button').click(function(){
+	$('#add_client_form')[0].hide();
+});

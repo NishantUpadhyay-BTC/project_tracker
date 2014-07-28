@@ -1,3 +1,4 @@
+
 class Project < ActiveRecord::Base
 	belongs_to :client
 	
@@ -6,13 +7,29 @@ class Project < ActiveRecord::Base
 	validates :BillingType, presence:true
 	
 	
-	def self.search(search = "", stat = "",id = null)
-	if search
-			Project.where(["name = ? OR status = ? AND client_id= ? ", search, stat,id ])
-			else
-			Project.all
-end
+
+	def self.in_search(search)
+		if search.present?
+			where('name = ?', search)
+		else
+			scoped
+		end
 	end
 
+	def self.in_stat(stat)
+		if stat.present?
+			where('status = ?', stat)
+		else
+			scoped
+		end
+	end
+
+	def self.in_id(id)
+		if id.present?
+			where('client_id = ?', id)
+		else
+			scoped
+		end
+	end
 
 end

@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
   
 
   def edit
-    
+     
   end
 
   def update
@@ -44,13 +44,19 @@ class ProjectsController < ApplicationController
   end 
 
   def index
-    
-    @project = Project.search(params[:search],params[:stat],params[:client_id]).paginate(page: params[:page], :per_page => 10)
+      @project = Project.in_search(params[:search]).in_stat(params[:stat]).in_id(params[:client_id]).paginate(page: params[:page], :per_page => 10)
+
+      # @project = Project.search(params[:search],params[:stat],params[:client_id]).paginate(page: params[:page], :per_page => 10)
+      respond_to do |format| 
+        format.html
+        format.js
+      end
+     
      
   end
 
   def show
-
+     
   end
 
   private
@@ -64,6 +70,6 @@ class ProjectsController < ApplicationController
     end
    def create_params
       params.require(:project).permit(:Name, :Code, :Description, :BillingType, :StartDate,:DeadlineDate, :EndDate, :gitHubUrl, :status, :name, :country, :client_id)
-    end
-
+    
+  end
 end

@@ -11,7 +11,7 @@ resources :projects, :clients
   
   match '/', to: 'mainpage#home', via: 'get'
   
-
+  match '/toggle_div', to: 'clients#index#toggle_div',  via: 'get'
   match '/account', to: 'mainpage#account', via: 'get'
   match '/aboutus', to: 'mainpage#aboutus', via: 'get'
   match '/contactus', to: 'mainpage#contactus', via: 'get'

@@ -3,15 +3,19 @@ class ClientsController < ApplicationController
   	@client = Client.new
 
   end
-  
+  def show
+    @client = Client.find(params[:id])
+    # @project = Project.find(@client)
+  end
   def create
   	@client = Client.new(user_params)
+
     if @client.save
       flash[:success] = "Client Added Successfully"
-    redirect_to clients_path
+      redirect_to clients_path
   else
     flash[:failure] = "Something goes wrong.. Make sure that all blanks are filled and length of name must be less than 50 characters"
-    redirect_to new_client_path
+    redirect_to clients_path
   end
   end
   def edit
@@ -26,8 +30,12 @@ class ClientsController < ApplicationController
   end
   end
    def index
-     @client = Client.paginate(page: params[:page], :per_page => 10)
-
+     @clients = Client.paginate(page: params[:page], :per_page => 10)
+     @client = Client.new
+      respond_to do |format| 
+        format.html
+        format.js
+      end
   end
 
   def destroy
@@ -37,6 +45,12 @@ class ClientsController < ApplicationController
     @client.destroy
     redirect_to clients_path
   end
+
+  def toggle_div     
+     render :update do |page|
+          page.toggle("toggle_div")
+     end
+end
   private
 
 
