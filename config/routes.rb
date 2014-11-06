@@ -1,5 +1,7 @@
 ProjectTracker::Application.routes.draw do
 
+  resources :users
+
   get "clients/controller"
 resources :projects, :clients
   root 'mainpage#home'
@@ -15,6 +17,8 @@ resources :projects, :clients
   match '/account', to: 'mainpage#account', via: 'get'
   match '/aboutus', to: 'mainpage#aboutus', via: 'get'
   match '/contactus', to: 'mainpage#contactus', via: 'get'
+  resources :users
+  resource :verifications
   
   
   # The priority is based upon order of creation: first created -> highest priority.
